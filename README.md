@@ -82,24 +82,11 @@ The worker then runs on every upload to any repo. It resolves the repo’s proje
 Set how often the quota is recomputed:
 
 ```bash
-jf worker edit-schedule project-storage-quota-check-scheduled --cron "0 */30 * * *"
+jf worker edit-schedule project-storage-quota-check-scheduled --cron "0 * * * *"
 ```
 
-Examples:
+**Best practice — schedule interval:** Each run of the scheduled worker triggers Artifactory’s **Refresh Storage Summary** API (`POST /api/storageinfo/calculate`) so that quota decisions use up-to-date storage data instead of cached values. That refresh can be resource-intensive on large instances. **Do not run the scheduled worker more frequently than once per hour in production** - prefer an interval of one hour or longer to avoid unnecessary load on the platform. Use a shorter interval only for testing.
 
-| Cron | Meaning |
-|------|---------|
-| `0 */30 * * *` | Every 30 minutes |
-| `0 * * * *` | Every hour |
-| `* * * * *` | Every minute (useful for testing only) |
-
-**Best practice — schedule interval:** Each run of the scheduled worker triggers Artifactory’s **Refresh Storage Summary** API (`POST /api/storageinfo/calculate`) so that quota decisions use up-to-date storage data instead of cached values. That refresh can be resource-intensive on large instances. **Do not run the scheduled worker more frequently than once per hour** in production; prefer an interval of one hour or longer (e.g. `0 * * * *` or `0 */2 * * *`) to avoid unnecessary load on the platform. Use a shorter interval only for testing.
-
-Then redeploy the scheduled worker so the schedule takes effect:
-
-```bash
-jf worker deploy ./project-storage-quota-check-scheduled
-```
 
 ## Enable workers
 
