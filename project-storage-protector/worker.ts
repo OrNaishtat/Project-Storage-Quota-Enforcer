@@ -73,13 +73,33 @@ export default async (
     }
 };
 
+/**
+ * Resolves the project key for a repo. Remote cache repos (e.g. my-remote-cache) often
+ * return 400 from GET /repositories/{key}; in that case we use the parent remote repo
+ * (e.g. my-remote) to get the project, since cache inherits from the remote.
+ */
 async function getProjectKey(context: PlatformContext, repoKey: string): Promise<string | null> {
+    const project = await getProjectKeyFromRepo(context, repoKey);
+    if (project) return project;
+    // Fallback: if repo key ends with "-cache", try the parent remote repo (Artifactory convention)
+    if (repoKey.endsWith('-cache')) {
+        const parentKey = repoKey.slice(0, -6); // remove "-cache"
+        return getProjectKeyFromRepo(context, parentKey);
+    }
+    return null;
+}
+
+async function getProjectKeyFromRepo(
+    context: PlatformContext,
+    repoKey: string,
+): Promise<string | null> {
     try {
         const res = await context.clients.platformHttp.get(`/artifactory/api/repositories/${repoKey}`);
-        return res.data?.projectKey ?? null;
+        const data = res.data as { projectKey?: string; project_key?: string } | undefined;
+        return data?.projectKey ?? data?.project_key ?? null;
     } catch (error: any) {
         const status = error?.status ?? error?.response?.status;
-        if (status === 404 || status === 400) return null; // no repo or bad request → skip (allow upload)
+        if (status === 404 || status === 400) return null;
         console.error(`[storage-protector] Failed to get project for repo "${repoKey}": ${error.message}`);
         return null;
     }
