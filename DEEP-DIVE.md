@@ -149,13 +149,3 @@ For the protector, use **Workers → project-storage-protector → Test** with a
 | Blocked flag not updating | Quota-check not running or wrong schedule | Check Workers execution history; set schedule and redeploy. |
 | Wrong project or no project | Repo not assigned to project | Assign the repo to the correct project in Artifactory. |
 | Tracking repo errors | Repo missing or wrong key | Create local repo with key from `trackingRepo` property, or fix the property. |
-
-## File layout (what to commit)
-
-Only the following are needed for the workers; do not commit test binaries or secrets:
-
-- **Root:** `README.md`, `DEEP-DIVE.md`, `.gitignore`
-- **project-storage-quota-check-scheduled:** `manifest.json`, `worker.ts`, `jfrog-workers.d.ts`
-- **project-storage-protector:** `manifest.json`, `worker.ts`, `types.ts`, `jfrog-workers.d.ts`
-
-Exclude from version control: `*.bin`, test data, `.env`, credentials, and any customer- or environment-specific config.
