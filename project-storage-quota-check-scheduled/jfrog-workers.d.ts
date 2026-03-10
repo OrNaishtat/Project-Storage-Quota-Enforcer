@@ -5,6 +5,7 @@ declare module 'jfrog-workers' {
                 get(url: string): Promise<{ data?: any; status?: number }>;
                 put(url: string, body?: any): Promise<{ data?: any; status?: number }>;
                 post(url: string, body?: any): Promise<{ data?: any; status?: number }>;
+                patch(url: string, body?: any): Promise<{ data?: any; status?: number }>;
             };
         };
         readonly properties: {
