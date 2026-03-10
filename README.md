@@ -146,6 +146,6 @@ This repo addresses **storage** quota only. Data transfer (egress) is separate; 
 
 ## See also
 
-- **DEEP-DIVE.md** — Architecture, APIs, and implementation details.
+- [**DEEP-DIVE.md**](https://github.com/OrNaishtat/Project-Storage-Quota-Enforcer/blob/main/DEEP-DIVE.md) — Architecture, APIs, and implementation details.
 - [JFrog Workers](https://jfrog.com/help/r/jfrog-platform-administration-documentation/workers)
 - [Get Project (storage_quota_bytes)](https://jfrog.com/help/r/jfrog-rest-apis/get-project)
