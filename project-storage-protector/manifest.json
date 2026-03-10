@@ -1,0 +1,14 @@
+{
+    "name": "project-storage-protector",
+    "description": "Blocks uploads for projects that have exceeded storage_quota_bytes. Reads blocked flag set by project-storage-quota-check. For all repos: after deploy, in worker Edit > Select Filters choose Any Local, Any Federated, Any Remote.",
+    "filterCriteria": {
+        "artifactFilterCriteria": {
+            "repoKeys": ["*"]
+        }
+    },
+    "secrets": {},
+    "sourceCodePath": "./worker.ts",
+    "action": "BEFORE_UPLOAD",
+    "enabled": true,
+    "debug": false
+}

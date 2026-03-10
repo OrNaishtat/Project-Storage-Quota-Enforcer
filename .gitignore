@@ -1,0 +1,25 @@
+# Test / binary artifacts (do not commit)
+*.bin
+1gb.bin
+5mb.bin
+
+# Dependencies
+node_modules/
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Logs and build output
+*.log
+dist/
+build/

@@ -1,0 +1,16 @@
+{
+  "name": "project-storage-quota-check-scheduled",
+  "description": "Runs on schedule: computes each project's storage usage vs storage_quota_bytes and sets blocked flag. Set schedule with: jf worker edit-schedule project-storage-quota-check-scheduled --cron \"* * * * *\"",
+  "sourceCodePath": "./worker.ts",
+  "action": "SCHEDULED_EVENT",
+  "enabled": true,
+  "debug": false,
+  "projectKey": "",
+  "secrets": {},
+  "filterCriteria": {
+    "schedule": {
+      "cron": "* * * * *",
+      "timezone": "UTC"
+    }
+  }
+}
