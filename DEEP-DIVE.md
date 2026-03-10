@@ -9,7 +9,6 @@ On JFrog Cloud, project-level **storage_quota_bytes** triggers notifications onl
 1. **project-storage-quota-check-scheduled** (SCHEDULED_EVENT) — Runs on a cron. For each project with a positive quota, it computes total storage used by repos in that project and writes a **blocked** flag (true/false) into a tracking repository.
 2. **project-storage-protector** (BEFORE_UPLOAD) — Runs on every upload. It resolves the upload’s repo to a project, reads that project’s **blocked** flag, and returns UPLOAD_STOP if the project is over quota.
 
-No credentials, customer names, or environment-specific identifiers are stored in the code or manifests; configuration is via Worker Properties and the JFrog UI.
 
 ## Architecture
 
